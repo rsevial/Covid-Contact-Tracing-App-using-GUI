@@ -10,6 +10,8 @@ class ContactTracingApp:
         # create varible that will store the info of the user in a list
         self.entries = []
     # Def function for add entry
+    def add_record(self, records):
+        self.entries.append(records)
     # Def function for search entry
     # Def function to write and save the file
     # Def function that will load and read the file
