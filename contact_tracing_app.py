@@ -9,6 +9,7 @@ user_records = ContactTracingRecords()
 from tkinter import messagebox
 
 # Create a class named ContactTracingApp that will perform
+class ContactTracingApp:
     # Def function for add entry
     # Def function for search entry
     # Def function to write and save the file
