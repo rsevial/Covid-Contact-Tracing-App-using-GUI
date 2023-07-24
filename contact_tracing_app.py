@@ -9,6 +9,7 @@ class ContactTracingApp:
     def __init__(self):
         # create varible that will store the info of the user in a list
         self.entries = []
+        self.read_records("contact_tracing_records.txt")
     # Def function for add entry
     def add_records(self, records):
         self.entries.append(records)
@@ -29,3 +30,9 @@ class ContactTracingApp:
                     entry = ContactTracingRecords(name, address, contact_number, vaccine, vaccine_result, contact_person_name, contact_person_phone, date_visited)
                     self.add_records(entry)
     # Def function for search entry
+    def search_records(self, search_key):
+        match_entry = []
+        for entry in self.entries:
+            if entry.name() == search_key():
+                match_entry.append(entry)
+        return match_entry
