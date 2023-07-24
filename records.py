@@ -12,5 +12,3 @@ class ContactTracingRecords:
         self.vaccine_result = vaccine_result
         self.contact_person_name = contact_person_name
         self.contact_person_phone = contact_person_phone
-
-
