@@ -2,6 +2,12 @@
 # Contact Tracing using GUI
 
 # Import all the needed modules and class from other class
+from tkinter import *
+from tkinter.font import Font
+from tkinter import messagebox
+from records import ContactTracingRecords
+from contact_tracing_app import ContactTracingApp
+
 # Create a class named ContactTracingGUI
 # Def function for parent window
     # Create a Title for parent windowT
