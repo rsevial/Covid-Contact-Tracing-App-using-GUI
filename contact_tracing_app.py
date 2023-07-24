@@ -2,6 +2,12 @@
 # Contact Tracing Application (Add and Search Entry)
 
 # Import the class from other files that store the info of the user
+# Create Object for that imported class
+from records import ContactTracingRecords
+user_records = ContactTracingRecords()
+# Import module
+from tkinter import messagebox
+
 # Create a class named ContactTracingApp that will perform
     # Def function for add entry
     # Def function for search entry
