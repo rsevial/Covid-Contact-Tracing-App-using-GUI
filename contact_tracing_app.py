@@ -12,6 +12,11 @@ class ContactTracingApp:
     # Def function for add entry
     def add_record(self, records):
         self.entries.append(records)
-    # Def function for search entry
     # Def function to write and save the file
+    def save_records(self, filename):
+       with open(filename, 'w') as file:
+            for entry in self.save_records:
+                file.write(f"{entry.name}, {entry.address}, {entry.contact_number}, {entry.email}, {entry.vaccine}, {entry.vaccine_result}, {entry.contact_person_name}, {entry.contact_person_phone}\n")
+ 
     # Def function that will load and read the file
+    # Def function for search entry
