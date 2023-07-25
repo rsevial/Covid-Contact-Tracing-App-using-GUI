@@ -9,6 +9,7 @@ from records import ContactTracingRecords
 from contact_tracing_app import ContactTracingApp
 
 # Create a class named ContactTracingGUI
+class ContactTracingGUI:
 # Def function for parent window
     # Create a Title for parent windowT
     # Create a frame and the preferred size and color of the parent window
