@@ -22,7 +22,10 @@ class ContactTracingGUI:
         # Create variable for font and size that you will use often.
         window.title_font = Font(family="Century Gothic", size=25, weight="bold")
         # Put a heading to welcome the user and will ask the if he/she will add entry or search contacts
-        
+        window.heading = Label(text="Contact Tracing for COVID-19", fg="white", bg="#1b5886", width=30, height=2, font=window.title_font)
+        window.heading.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+        window.greet = Label(text="Please select the desired method of operation.", fg="#1b5886", bg="white", width=40, height=1,  font=window.label_font)
+        window.greet.grid(row=1, columnspan=2, padx=10, pady=10, sticky="w")
         # Create and state the position for add and search entry buttons
     # Def functions that will display a child window named add if the user picks add buttons
         # Create a child window
