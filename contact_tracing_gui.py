@@ -46,7 +46,14 @@ class ContactTracingGUI:
         child_window_title_font = Font(family="Montserrat", size=20, weight="bold")
         child_window_font_forques = ("Oxygen Bold", 11)
         child_window_label_font = ("Montserrat", 12)
+        # Put a heading for add record
+        add_frame = Frame(add_window, bg="white")
+        add_frame.pack(padx=10, pady=25)
+        new_con = Label(add_frame, text="New Record", bg="#1b5886", fg="white", width=35, height=1, font=child_window_title_font)
+        new_con.grid(row=0, column=0, sticky="w", pady=10)
         # Provide a set of instructions for the user to keep
+        instructions = Label(add_frame, text="Kindly respond to the following questions with utmost honesty:", fg="#152238", bg="white", width=70, height=1,  font=child_window_font_for_ques)
+        instructions.grid(row=1, column=0, sticky="w", columnspan=3, pady=10)     
         # Create checkbutton, text, entry for asking the user's 
         # name, address, contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone
     # Def functions that will display a child window named search if the user picks search buttons
