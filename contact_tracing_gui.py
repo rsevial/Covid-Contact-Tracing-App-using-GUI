@@ -58,12 +58,12 @@ class ContactTracingGUI:
         # name
         name_label = Label(add_frame, text="1. Full Name", fg="#152238", bg="white", font=child_window_label_font)
         name_label.grid(row=2, column=0, pady=3, padx= 1, sticky="w")
-        
+        # first name
         first_name_label = Label(add_frame, text="Last Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
         first_name_label.grid(row=3, column=0, pady=3, padx= 1, sticky="w")
         self.last_name_entry = Entry(add_frame)
         self.last_name_entry.grid(row=3, column=1, sticky="w")
-
+        # last name
         first_name_label = Label(add_frame, text="First Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
         first_name_label.grid(row=4, column=0, pady=3, padx= 1, sticky="w")
         self.first_name_entry = Entry(add_frame)
@@ -71,12 +71,13 @@ class ContactTracingGUI:
         # address
         address_label = Label(add_frame, text="2. Address:", fg="#152238", bg="white", font=child_window_label_font)
         address_label.grid(row=5, column=0, pady=3, padx=1, sticky="w")
-        self.address_entry = Entry(add_frame)
-        self.address_entry.grid(row=5, column=1, sticky="w")
+        self.address_entry = Text(add_frame, width=30, height=3)
+        self.address_entry.place(y=200, x= 10)
         # contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone
     # Def function that will to get the data entered
     def add_record_action(self):
-        name = self.name_entry.get()
+        last_name = self.last_name_entry.get()
+        first_name = self.first_name_entry.get()
         address = self.address_entry.get()
 
     # Def functions that will display a child window named search if the user picks search buttons
