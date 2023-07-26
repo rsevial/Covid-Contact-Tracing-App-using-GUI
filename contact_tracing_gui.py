@@ -45,26 +45,34 @@ class ContactTracingGUI:
         # Create variable for font and size that you will use often.
         child_window_title_font = Font(family="Montserrat", size=20, weight="bold")
         child_window_font_for_ques = ("Oxygen Bold", 11)
-        child_window_label_font = ("Montserrat", 12)
+        child_window_label_font = Font(family="Montserrat", size=11, weight="bold")
         # Put a heading for add record
         add_frame = Frame(add_window, bg="white")
         add_frame.pack(padx=10, pady=25)
         new_con = Label(add_frame, text="New Record", bg="#1b5886", fg="white", width=35, height=1, font=child_window_title_font)
-        new_con.grid(row=0, columnspan=2, sticky="w", pady=10)
+        new_con.grid(row=0, columnspan=3, sticky="w", pady=10)
         # Provide a instruction for the user to keep
-        instructions = Label(add_frame, text="Kindly respond to the following questions with utmost honesty:", fg="#152238", bg="white", width=60, height=1,  font=child_window_font_for_ques)
-        instructions.grid(row=1, columnspan=2, sticky="w", pady=3, padx=0)     
+        instructions = Label(add_frame, text="Kindly respond to the following questions with utmost honesty:", fg="#152238", bg="white", height=1, font=child_window_font_for_ques)
+        instructions.grid(row=1, columnspan=3, sticky="w", pady=3, padx=3)     
         # Create checkbutton, text, entry for asking the user's 
         # name
-        name_label = Label(add_frame, text="1. Full Name(Last Name, First Name, Middle Initial):", fg="#152238", bg="white", font=child_window_font_for_ques)
-        name_label.grid(row=3, column=0, pady=3, padx= 6, sticky="w")
-        self.name_entry = Entry(add_frame)
-        self.name_entry.grid(row=3, column=1, sticky="w")
+        name_label = Label(add_frame, text="1. Full Name", fg="#152238", bg="white", font=child_window_label_font)
+        name_label.grid(row=2, column=0, pady=3, padx= 1, sticky="w")
+        
+        first_name_label = Label(add_frame, text="Last Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
+        first_name_label.grid(row=3, column=0, pady=3, padx= 1, sticky="w")
+        self.last_name_entry = Entry(add_frame)
+        self.last_name_entry.grid(row=3, column=1, sticky="w")
+
+        first_name_label = Label(add_frame, text="First Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
+        first_name_label.grid(row=4, column=0, pady=3, padx= 1, sticky="w")
+        self.first_name_entry = Entry(add_frame)
+        self.first_name_entry.grid(row=4, column=1, sticky="w")
         # address
-        address_label = Label(add_frame, text="2. Address:", fg="#152238", bg="white", font=child_window_font_for_ques)
-        address_label.grid(row=4, column=0, pady=3, padx=6, sticky="w")
+        address_label = Label(add_frame, text="2. Address:", fg="#152238", bg="white", font=child_window_label_font)
+        address_label.grid(row=5, column=0, pady=3, padx=1, sticky="w")
         self.address_entry = Entry(add_frame)
-        self.address_entry.grid(row=4, column=1, pady=3, padx=3, sticky="w")
+        self.address_entry.grid(row=5, column=1, sticky="w")
         # contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone
     # Def function that will to get the data entered
     def add_record_action(self):
