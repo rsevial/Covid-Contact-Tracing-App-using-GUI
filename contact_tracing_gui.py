@@ -19,7 +19,10 @@ class ContactTracingGUI:
         # Create a frame and the preferred size and color of the parent window
         window.geometry("625x300")
         window.configure(bg="white") 
+        # Create variable for font and size that you will use often.
+        window.title_font = Font(family="Century Gothic", size=25, weight="bold")
         # Put a heading to welcome the user and will ask the if he/she will add entry or search contacts
+        
         # Create and state the position for add and search entry buttons
     # Def functions that will display a child window named add if the user picks add buttons
         # Create a child window
