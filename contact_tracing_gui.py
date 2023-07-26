@@ -27,6 +27,10 @@ class ContactTracingGUI:
         window.greet = Label(text="Please select the desired method of operation.", fg="#1b5886", bg="white", width=40, height=1,  font=window.label_font)
         window.greet.grid(row=1, columnspan=2, padx=10, pady=10, sticky="w")
         # Create and state the position for add and search entry buttons
+        # for add entry
+        window.add_button = Button(master=main, text="Add Record | +", width=15, height=2, fg="#003a88", bg="#90b1db", relief=GROOVE, font=window.label_font, justify="left")
+        window.add_button.grid(row=3, column=0, padx=10, pady=10)
+        # for search entry
     # Def functions that will display a child window named add if the user picks add buttons
         # Create a child window
         # Create checkbutton, text, entry for asking the user's 
