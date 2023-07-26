@@ -17,6 +17,8 @@ class ContactTracingGUI:
         # Create a Title for parent window
         window.title("Contact Tracing Application")
         # Create a frame and the preferred size and color of the parent window
+        window.geometry("625x300")
+        window.configure(bg="white") 
         # Put a heading to welcome the user and will ask the if he/she will add entry or search contacts
         # Create and state the position for add and search entry buttons
     # Def functions that will display a child window named add if the user picks add buttons
