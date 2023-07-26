@@ -50,17 +50,21 @@ class ContactTracingGUI:
         add_frame = Frame(add_window, bg="white")
         add_frame.pack(padx=10, pady=25)
         new_con = Label(add_frame, text="New Record", bg="#1b5886", fg="white", width=35, height=1, font=child_window_title_font)
-        new_con.grid(row=0, column=0, sticky="w", pady=10)
+        new_con.grid(row=0, columnspan=2, sticky="w", pady=10)
         # Provide a instruction for the user to keep
-        instructions = Label(add_frame, text="Kindly respond to the following questions with utmost honesty:", fg="#152238", bg="white", width=70, height=1,  font=child_window_font_for_ques)
-        instructions.grid(row=1, column=0, sticky="w", pady=5)     
+        instructions = Label(add_frame, text="Kindly respond to the following questions with utmost honesty:", fg="#152238", bg="white", width=60, height=1,  font=child_window_font_for_ques)
+        instructions.grid(row=1, columnspan=2, sticky="w", pady=5)     
         # Create checkbutton, text, entry for asking the user's 
         # name
-        name = Label(add_frame, text="Full Name(Last Name, First Name, Middle Initial):", fg="#152238", bg="white", font=child_window_font_for_ques)
-        name.grid(row=3, column=0, pady=5, sticky="w")
-        self.name_entry = Entry(add_window)
+        name_label = Label(add_frame, text="Full Name(Last Name, First Name, Middle Initial):", fg="#152238", bg="white", font=child_window_font_for_ques)
+        name_label.grid(row=3, column=0, pady=5, padx= 7, sticky="w")
+        self.name_entry = Entry(add_frame)
         self.name_entry.grid(row=3, column=1, sticky="w")
         # address, contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone
+    # Def function that will to get the data entered
+    def add_record_action(self):
+        name = self.name_entry.get()
+
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user
