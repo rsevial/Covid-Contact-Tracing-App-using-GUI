@@ -78,14 +78,20 @@ class ContactTracingGUI:
         contact_number_label.grid(row=8, column=0, pady=3, padx= 1, sticky="w")
         self.contact_number_entry = Entry(add_frame)
         self.contact_number_entry.grid(row=8, column=1, sticky="w")
-
-        # email, vaccine, vaccine_result, contact_person_name, contact_person_phone
+        # email
+        email_label = Label(add_frame, text="4. Email Address:", fg="#152238", bg="white", font=child_window_label_font)
+        email_label.grid(row=9, column=0, pady=3, padx= 1, sticky="w")
+        self.email_label_entry = Entry(add_frame)
+        self.email_label_entry.grid(row=9, column=1, sticky="w")
+        # vaccine
+        # vaccine_result, contact_person_name, contact_person_phone
     # Def function that will to get the data entered
     def add_record_action(self):
         last_name = self.last_name_entry.get()
         first_name = self.first_name_entry.get()
         address = self.address_entry.get()
         contact_number = self.contact_number_entry.get()
+        email = self.email_label_entry.get()
 
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
