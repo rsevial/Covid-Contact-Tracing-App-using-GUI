@@ -21,6 +21,8 @@ class ContactTracingGUI:
         window.configure(bg="white") 
         # Create variable for font and size that you will use often.
         window.title_font = Font(family="Century Gothic", size=25, weight="bold")
+        window.label_font = ("Montserrat", 11)
+        window.font_for_ques = ("Oxygen Bold", 11)
         # Put a heading to welcome the user and will ask the if he/she will add entry or search contacts
         window.heading = Label(text="Contact Tracing for COVID-19", fg="white", bg="#1b5886", width=30, height=2, font=window.title_font)
         window.heading.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
