@@ -31,6 +31,8 @@ class ContactTracingGUI:
         window.add_button = Button(master=main, text="Add Record | +", width=15, height=2, fg="#003a88", bg="#90b1db", relief=GROOVE, font=window.label_font, justify="left")
         window.add_button.grid(row=3, column=0, padx=10, pady=10)
         # for search entry
+        window.search_button = Button(master=main, text="Search Record", width=15, height=2, fg="#003a88", bg="#90b1db", relief=GROOVE, font=window.label_font, justify="right")
+        window.search_button.grid(row=3, column=1, padx=10, pady=10)
     # Def functions that will display a child window named add if the user picks add buttons
         # Create a child window
         # Create checkbutton, text, entry for asking the user's 
