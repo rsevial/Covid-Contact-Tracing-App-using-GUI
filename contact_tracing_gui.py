@@ -21,7 +21,7 @@ class ContactTracingGUI:
         window.configure(bg="white") 
         # Create variable for font and size that you will use often.
         window.title_font = Font(family="Century Gothic", size=25, weight="bold")
-        window.label_font = ("Montserrat", 11)
+        window.label_font = ("Montserrat", 12)
         window.font_for_ques = ("Oxygen Bold", 11)
         # Put a heading to welcome the user and will ask the if he/she will add entry or search contacts
         window.heading = Label(text="Contact Tracing for COVID-19", fg="white", bg="#1b5886", width=30, height=2, font=window.title_font)
@@ -38,6 +38,15 @@ class ContactTracingGUI:
     # Def functions that will display a child window named add if the user picks add buttons
     def add_record(self):
         # Create a child window
+        add_window = Toplevel(self.main)
+        add_window.title("Add Record")
+        add_window.geometry("600x700")
+        add_window.configure(bg="white")
+        # Create variable for font and size that you will use often.
+        child_window_title_font = Font(family="Montserrat", size=20, weight="bold")
+        child_window_font_forques = ("Oxygen Bold", 11)
+        child_window_label_font = ("Montserrat", 12)
+        # Provide a set of instructions for the user to keep
         # Create checkbutton, text, entry for asking the user's 
         # name, address, contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone
     # Def functions that will display a child window named search if the user picks search buttons
