@@ -14,7 +14,8 @@ class ContactTracingGUI:
         self.contact_tracing_app = ContactTracingApp
         self.main = main
         window = self.main
-        # Create a Title for parent windowT
+        # Create a Title for parent window
+        window.title("Contact Tracing Application")
         # Create a frame and the preferred size and color of the parent window
         # Put a heading to welcome the user and will ask the if he/she will add entry or search contacts
         # Create and state the position for add and search entry buttons
