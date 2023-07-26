@@ -53,7 +53,7 @@ class ContactTracingGUI:
         new_con.grid(row=0, columnspan=3, sticky="w", pady=10)
         # Provide a instruction for the user to keep
         instructions = Label(add_frame, text="Kindly respond to the following questions with utmost honesty:", fg="#152238", bg="white", height=1, font=child_window_font_for_ques)
-        instructions.grid(row=1, columnspan=3, sticky="w", pady=3, padx=3)     
+        instructions.grid(row=1, columnspan=1, sticky="w", pady=3, padx=3)     
         # Create checkbutton, text, entry for asking the user's 
         # name
         name_label = Label(add_frame, text="1. Full Name", fg="#152238", bg="white", font=child_window_label_font)
@@ -71,14 +71,21 @@ class ContactTracingGUI:
         # address
         address_label = Label(add_frame, text="2. Address:", fg="#152238", bg="white", font=child_window_label_font)
         address_label.grid(row=5, column=0, pady=3, padx=1, sticky="w")
-        self.address_entry = Text(add_frame, width=30, height=3)
-        self.address_entry.place(y=200, x= 10)
-        # contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone
+        self.address_entry = Text(add_frame, width=45, height=2)
+        self.address_entry.grid(row=6, columnspan=3, sticky="w")
+        # Contact Number
+        contact_number_label = Label(add_frame, text="3. Contact Number:", fg="#152238", bg="white", font=child_window_label_font)
+        contact_number_label.grid(row=8, column=0, pady=3, padx= 1, sticky="w")
+        self.contact_number_entry = Entry(add_frame)
+        self.contact_number_entry.grid(row=8, column=1, sticky="w")
+
+        # email, vaccine, vaccine_result, contact_person_name, contact_person_phone
     # Def function that will to get the data entered
     def add_record_action(self):
         last_name = self.last_name_entry.get()
         first_name = self.first_name_entry.get()
         address = self.address_entry.get()
+        contact_number = self.contact_number_entry.get()
 
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
