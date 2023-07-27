@@ -37,7 +37,7 @@ class ContactTracingGUI:
         window.add_button.grid(row=3, column=0, padx=10, pady=10)
         
         # for search entry
-        window.search_button = Button(master=main, text="Search Record", width=15, height=2, fg="#003a88", bg="#90b1db", relief=GROOVE, font=window.label_font, justify="right")
+        window.search_button = Button(master=main, text="Search Record", width=15, height=2, fg="#003a88", bg="#90b1db", relief=GROOVE, font=window.label_font, justify="right", command=self.search_record)
         window.search_button.grid(row=3, column=1, padx=10, pady=10)
     
     # Def functions that will display a child window named add if the user picks add buttons
@@ -87,7 +87,7 @@ class ContactTracingGUI:
         # address
         address_label = Label(add_frame, text="2. Address:", fg="#152238", bg="white", font=child_window_label_font)
         address_label.grid(row=6, column=0, pady=3, padx=1, sticky="w")
-        self.address_entry = Text(add_frame, width=48, height=2,font=child_window_font_for_ques )
+        self.address_entry = Text(add_frame, width=48, height=2,font=("Montserrat", 11) )
         self.address_entry.grid(row=7, column=0, sticky="w")
         
         # Contact Number
@@ -211,7 +211,27 @@ class ContactTracingGUI:
                 self.data_privacy_window.destroy()
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while saving the record: {e}")
-
-    # Def functions that will display a child window named search if the user picks search buttons
+    
+    # Define function that will search the user's information
+    def search_record(self):
         # Create a child window
-        # Create search key that will ask the name of the user
+        search_window = Toplevel(self.main)
+        search_window.title("Search Record")
+        search_window.geometry("528x400")
+        search_window.configure(bg="white")
+
+        # Create a label and entry field for the user to enter the name they want to search for
+        search_label = Label(search_window, text="Enter Name to Search:", fg="#152238", bg="white", font=("Montserrat", 12, "bold"))
+        search_label.grid(row=0, column=0, pady=10, padx=10, sticky="w")
+
+        search_entry = Entry(search_window, font=("Montserrat", 12))
+        search_entry.grid(row=0, column=1, pady=10, padx=10, sticky="w")
+
+        # Create a button to initiate the search
+        search_button = Button(search_window, text="Search", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 12, "bold"), command=lambda: self.perform_search(search_entry.get()))
+        search_button.grid(row=0, column=2, pady=10, padx=10, sticky="w")
+
+        # Create a frame to display the search results
+        results_frame = Frame(search_window, bg="#cae4f1", width=500, height= 325)
+        results_frame.grid(row=1, column=0, columnspan=3, pady=10, padx=5)
+
