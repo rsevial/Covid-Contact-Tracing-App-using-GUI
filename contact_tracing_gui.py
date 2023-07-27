@@ -158,13 +158,29 @@ class ContactTracingGUI:
     def add_record_action(self):
         last_name = self.last_name_entry.get()
         first_name = self.first_name_entry.get()
-        address = self.address_entry.get()
+        address = self.address_entry.get("1.0", END).strip()
         contact_number = self.contact_number_entry.get()
         email = self.email_label_entry.get
         vaccine = self.vaccine_var.get()
         contact_person_name = self.contact_person_name_label_entry.get()
         contact_person_phone = self.contact_person_phone_entry.get()
 
+        # Check if the entered data fills the needed data.
+        fields = [
+            ("Last Name", last_name),
+            ("First Name", first_name),
+            ("Address", address),
+            ("Contact Number", contact_number),
+            ("Email", email),
+            ("Vaccine", vaccine),
+            ("Contact Person's Name", contact_person_name),
+            ("Contact Person's Phone", contact_person_phone)
+            ]
+        # Check if any required information is empty
+        for field_value in fields:
+            if not field_value:
+                messagebox.showerror("Error", "Please fill in all the required information.")
+                return
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user
