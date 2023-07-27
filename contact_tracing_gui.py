@@ -128,6 +128,10 @@ class ContactTracingGUI:
         contact_person_phone_label.grid(row=18, column=0, pady=3, padx= 1, sticky="w")
         self.contact_person_phone_entry = Entry(add_frame)
         self.contact_person_phone_entry.grid(row=18, columnspan=1, sticky="e")
+    
+    # Create a button that will add the new record
+        add_record = Button(add_frame, text="Add Record", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=child_window_label_font, justify="right")
+        add_record.grid(row=19, columnspan=1, padx=10, pady=10, sticky="e")
 
     # Def function that will to get the data entered
     def add_record_action(self):
@@ -139,7 +143,9 @@ class ContactTracingGUI:
         vaccine = self.vaccine_var.get()
         contact_person_name = self.contact_person_name_label_entry.get()
         contact_person_phone = self.contact_person_phone_entry.get()
-    
+
+        # Check 
+
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user
