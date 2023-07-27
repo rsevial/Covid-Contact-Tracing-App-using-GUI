@@ -14,6 +14,7 @@ class ContactTracingGUI:
         self.contact_tracing_app = ContactTracingApp()
         self.main = main
         window = self.main
+        self.match_entry = []
         # Create a Title for parent window
         window.title("Contact Tracing Application")
         # Create a frame and the preferred size and color of the parent window
@@ -136,20 +137,20 @@ class ContactTracingGUI:
     # Def function for data privacy agreement
     def data_privacy(self):
         # Data Privacy Window
-        data_privacy_window = Toplevel(self.main)
-        data_privacy_window.title("Data Privacy")
-        data_privacy_window.geometry("300x300")
-        data_privacy_window.configure(bg="white")
+        self.data_privacy_window = Toplevel(self.main)
+        self.data_privacy_window.title("Data Privacy")
+        self.data_privacy_window.geometry("300x300")
+        self.data_privacy_window.configure(bg="white")
         # Var for data privacy message
         data_privacy_text = """I hereby authorize the application to collect and process the data listed here so that the COVID-19 infection can be controlled. I am aware that the Data Privacy Act of 2012 protects my personal information. If needed, this information may be used to help Medical Services and/or LGU find my contact information. I also know that the RA 11469 Bayanihan to Heal as One Act requires me to give accurate information. Click the OK Button to proceed. Otherwise, click the cancel button."""
         # label widget
-        data_privacy_label = Label(data_privacy_window, text=data_privacy_text, bg="white", fg="black", font=("Oxygen Bold", 11), wraplength=280, justify="left")
+        data_privacy_label = Label(self.data_privacy_window, text=data_privacy_text, bg="white", fg="black", font=("Oxygen Bold", 11), wraplength=280, justify="left")
         data_privacy_label.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
         # button widget for ok
-        data_privacy_ok_button = Button(data_privacy_window, text="OK", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.add_record_action)
+        data_privacy_ok_button = Button(self.data_privacy_window, text="OK", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.add_record_action)
         data_privacy_ok_button.grid(row=1, column=1, padx=5, pady=5, sticky="e")
         # button widgets for cancel
-        data_privacy_cancel_button = Button(data_privacy_window, text="Cancel", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=data_privacy_window.destroy)
+        data_privacy_cancel_button = Button(self.data_privacy_window, text="Cancel", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=data_privacy_window.destroy)
         data_privacy_cancel_button.grid(row=1, column=0, padx=5, pady=5, sticky="w")
         # Make the Label widget non-editable
         data_privacy_label.config(state="disabled")
@@ -180,7 +181,7 @@ class ContactTracingGUI:
         for field_name, field_value in fields:
             if not field_value:
                 messagebox.showerror("Error", f"Please fill in the required field: {field_name}")
-                return
+                return False
         # Check if the numbers are all int for 
         # contact_number
         try:
@@ -197,7 +198,7 @@ class ContactTracingGUI:
                 raise ValueError
         except ValueError:
             messagebox.showerror("Error", "Contact person's phone number must be a valid 11-digit number.")
-            return
+            return 
         
         # Create an instance of ContactTracingRecords
         name = f"{last_name}, {first_name}"
@@ -211,7 +212,9 @@ class ContactTracingGUI:
                 self.data_privacy_window.destroy()
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while saving the record: {e}")
-    
+            return False
+        
+        return True
     # Define function that will search the user's information
     def search_record(self):
         # Create a child window
@@ -228,10 +231,38 @@ class ContactTracingGUI:
         search_entry.grid(row=0, column=1, pady=10, padx=10, sticky="w")
 
         # Create a button to initiate the search
-        search_button = Button(search_window, text="Search", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 12, "bold"), command=lambda: self.perform_search(search_entry.get()))
+        search_button = Button(search_window, text="Search", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 12, "bold"), command=lambda: self.search_record_action(search_entry, self.contact_tracing_app, results_frame))
         search_button.grid(row=0, column=2, pady=10, padx=10, sticky="w")
 
         # Create a frame to display the search results
         results_frame = Frame(search_window, bg="#cae4f1", width=500, height= 325)
         results_frame.grid(row=1, column=0, columnspan=3, pady=10, padx=5)
+    
+    # Define the search action
+    def search_record_action(self, search_entry_widget, contact_tracing_app, results_frame):
+        search_info = search_entry_widget.get()
 
+        # Check if the input is valid
+        if not search_info.strip():
+            messagebox.showerror("Error", "Please enter a valid search query.")
+            return
+
+        # Search for matching entries
+        self.match_entry = contact_tracing_app.search_records(search_key=search_info)
+        # Display the search results
+        self.display_search_results(results_frame)
+
+    # Define function to display the search results
+    def display_search_results(self, results_frame):
+        # Clear any previous search results from the frame
+        for widget in results_frame.winfo_children():
+            widget.destroy()
+        # display the info
+        if self.match_entry:
+            for idx, entry in enumerate(self.match_entry):
+                result_label = Label(results_frame, text=f"{idx + 1}. {entry.name}, {entry.address}, {entry.contact_number}", fg="#152238", bg="white", font=("Montserrat", 11))
+                result_label.pack(anchor="w")
+        else:
+            no_result_label = Label(results_frame, text="No matching records found.", fg="#152238", bg="white", font=("Montserrat", 11, "italic"))
+            no_result_label.pack(anchor="w")
+    
