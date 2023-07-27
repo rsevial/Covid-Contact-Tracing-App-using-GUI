@@ -130,8 +130,29 @@ class ContactTracingGUI:
         self.contact_person_phone_entry.grid(row=18, columnspan=1, sticky="e")
     
     # Create a button that will add the new record
-        add_record = Button(add_frame, text="Add Record", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=child_window_label_font, justify="right")
+        add_record = Button(add_frame, text="Add Record", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=child_window_label_font, justify="right", command=self.data_privacy)
         add_record.grid(row=19, columnspan=1, padx=10, pady=10, sticky="e")
+
+    # Def function for data privacy agreement
+    def data_privacy(self):
+        # Data Privacy Window
+        data_privacy_window = Toplevel(self.main)
+        data_privacy_window.title("Data Privacy")
+        data_privacy_window.geometry("300x300")
+        data_privacy_window.configure(bg="white")
+        # Var for data privacy message
+        data_privacy_text = """I hereby authorize the application to collect and process the data listed here so that the COVID-19 infection can be controlled. I am aware that the Data Privacy Act of 2012 protects my personal information. If needed, this information may be used to help Medical Services and/or LGU find my contact information. I also know that the RA 11469 Bayanihan to Heal as One Act requires me to give accurate information. Click the OK Button to proceed. Otherwise, click the cancel button."""
+        # label widget
+        data_privacy_label = Label(data_privacy_window, text=data_privacy_text, bg="white", fg="black", font=("Oxygen Bold", 11), wraplength=280, justify="left")
+        data_privacy_label.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+        # button widget for ok
+        data_privacy_ok_button = Button(data_privacy_window, text="OK", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.add_record_action)
+        data_privacy_ok_button.grid(row=1, column=1, padx=5, pady=5, sticky="e")
+        # button widgets for cancel
+        data_privacy_cancel_button = Button(data_privacy_window, text="Cancel", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=data_privacy_window.destroy)
+        data_privacy_cancel_button.grid(row=1, column=0, padx=5, pady=5, sticky="w")
+        # Make the Label widget non-editable
+        data_privacy_label.config(state="disabled")
 
     # Def function that will to get the data entered
     def add_record_action(self):
@@ -144,7 +165,7 @@ class ContactTracingGUI:
         contact_person_name = self.contact_person_name_label_entry.get()
         contact_person_phone = self.contact_person_phone_entry.get()
 
-        # Check 
+        # Check
 
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
