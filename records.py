@@ -3,7 +3,7 @@
 
 # Create a class that stores the information of the person who answered the app
 class ContactTracingRecords:
-    def __init__(self, name, address, contact_number, email, vaccine, vaccine_result, contact_person_name, contact_person_phone):
+    def __init__(self, name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone):
         self.name = name
         self.address = address
         self.contact_number = contact_number

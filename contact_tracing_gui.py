@@ -5,13 +5,13 @@
 from tkinter import *
 from tkinter.font import Font
 from tkinter import messagebox
-from contact_tracing_app import ContactTracingApp
+from contact_tracing_app import ContactTracingApp, ContactTracingRecords
 
 # Create a class named ContactTracingGUI
 class ContactTracingGUI:
     # Def function for main window
     def __init__(self,main):
-        self.contact_tracing_app = ContactTracingApp
+        self.contact_tracing_app = ContactTracingApp()
         self.main = main
         window = self.main
         # Create a Title for parent window
@@ -87,7 +87,7 @@ class ContactTracingGUI:
         # address
         address_label = Label(add_frame, text="2. Address:", fg="#152238", bg="white", font=child_window_label_font)
         address_label.grid(row=6, column=0, pady=3, padx=1, sticky="w")
-        self.address_entry = Text(add_frame, width=48, height=2)
+        self.address_entry = Text(add_frame, width=48, height=2,font=child_window_font_for_ques )
         self.address_entry.grid(row=7, column=0, sticky="w")
         
         # Contact Number
@@ -160,7 +160,7 @@ class ContactTracingGUI:
         first_name = self.first_name_entry.get()
         address = self.address_entry.get("1.0", END).strip()
         contact_number = self.contact_number_entry.get()
-        email = self.email_label_entry.get
+        email = self.email_label_entry.get()
         vaccine = self.vaccine_var.get()
         contact_person_name = self.contact_person_name_label_entry.get()
         contact_person_phone = self.contact_person_phone_entry.get()
@@ -177,9 +177,9 @@ class ContactTracingGUI:
             ("Contact Person's Phone", contact_person_phone)
             ]
         # Check if any required information is empty
-        for field_value in fields:
+        for field_name, field_value in fields:
             if not field_value:
-                messagebox.showerror("Error", "Please fill in all the required information.")
+                messagebox.showerror("Error", f"Please fill in the required field: {field_name}")
                 return
         # Check if the numbers are all int for 
         # contact_number
@@ -198,8 +198,20 @@ class ContactTracingGUI:
         except ValueError:
             messagebox.showerror("Error", "Contact person's phone number must be a valid 11-digit number.")
             return
-        # Save the contact records
+        
+        # Create an instance of ContactTracingRecords
+        name = f"{last_name}, {first_name}"
+        entry = ContactTracingRecords(name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone)
+        try:
+            # Save the records to a file
+            self.contact_tracing_app.add_records(entry)
+            self.contact_tracing_app.save_records("contact_tracing_records.txt")
+            messagebox.showinfo("Success", "Record added and saved successfully.")
+            if self.data_privacy_window:
+                self.data_privacy_window.destroy()
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred while saving the record: {e}")
+
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user
-
