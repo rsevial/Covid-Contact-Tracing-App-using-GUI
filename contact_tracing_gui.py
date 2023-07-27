@@ -181,6 +181,8 @@ class ContactTracingGUI:
             if not field_value:
                 messagebox.showerror("Error", "Please fill in all the required information.")
                 return
+        # Check if the numbers are all int for contact_number and contact_person_phone
+        # Save the contact records
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user
