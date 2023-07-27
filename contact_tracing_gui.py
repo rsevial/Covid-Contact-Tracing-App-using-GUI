@@ -181,7 +181,23 @@ class ContactTracingGUI:
             if not field_value:
                 messagebox.showerror("Error", "Please fill in all the required information.")
                 return
-        # Check if the numbers are all int for contact_number and contact_person_phone
+        # Check if the numbers are all int for 
+        # contact_number
+        try:
+            contact_number_int = int(contact_number)
+            if len(contact_number) != 11:
+                raise ValueError
+        except ValueError:
+            messagebox.showerror("Error", "Your Contact number must be a valid 11-digit number.")
+            return
+        # contact_person_phone
+        try:
+            contact_person_phone_int = int(contact_person_phone)
+            if len(contact_person_phone) != 11:
+                raise ValueError
+        except ValueError:
+            messagebox.showerror("Error", "Contact person's phone number must be a valid 11-digit number.")
+            return
         # Save the contact records
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
