@@ -165,8 +165,6 @@ class ContactTracingGUI:
         contact_person_name = self.contact_person_name_label_entry.get()
         contact_person_phone = self.contact_person_phone_entry.get()
 
-        # Check
-
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user

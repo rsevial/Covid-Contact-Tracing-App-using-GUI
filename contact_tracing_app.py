@@ -17,7 +17,7 @@ class ContactTracingApp:
     def save_records(self, filename):
        with open(filename, 'w') as file:
             for entry in self.save_records:
-                file.write(f"{entry.name}, {entry.address}, {entry.contact_number}, {entry.email}, {entry.vaccine}, {entry.vaccine_result}, {entry.contact_person_name}, {entry.contact_person_phone}\n")
+                file.write(f"{entry.name}, {entry.address}, {entry.contact_number}, {entry.email}, {entry.vaccine}, {entry.contact_person_name}, {entry.contact_person_phone}\n")
     # Def function that will load and read the file
     def read_records(self, filename):
         self.entries.clear()
@@ -26,8 +26,8 @@ class ContactTracingApp:
             for line in lines:
                 data = line.strip().split(',')
                 if len(data) == 8:
-                    name, address, contact_number, vaccine, vaccine_result, contact_person_name, contact_person_phone, date_visited = data
-                    entry = ContactTracingRecords(name, address, contact_number, vaccine, vaccine_result, contact_person_name, contact_person_phone, date_visited)
+                    name, address, contact_number, vaccine, contact_person_name, contact_person_phone, = data
+                    entry = ContactTracingRecords(name, address, contact_number, vaccine, contact_person_name, contact_person_phone)
                     self.add_records(entry)
     # Def function for search entry
     def search_records(self, search_key):
