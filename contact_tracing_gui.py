@@ -99,6 +99,11 @@ class ContactTracingGUI:
         self.contact_person_name_label_entry = Entry(add_frame)
         self.contact_person_name_label_entry.grid(row=15, column=1, sticky="w")
         #  contact_person_phone
+        contact_person_phone_label = Label(add_frame, text="6.b Contact Number:", fg="#152238", bg="white", font=child_window_label_font)
+        contact_person_phone_label.grid(row=16, column=0, pady=3, padx= 1, sticky="w")
+        self.contact_person_phone_entry = Entry(add_frame)
+        self.contact_person_phone_entry.grid(row=16, column=1, sticky="w")
+
     # Def function that will to get the data entered
     def add_record_action(self):
         last_name = self.last_name_entry.get()
