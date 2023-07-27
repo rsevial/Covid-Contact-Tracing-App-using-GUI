@@ -93,7 +93,12 @@ class ContactTracingGUI:
             vaccine = vaccine_choices[i]
             radiobutton = Radiobutton(add_frame, text=vaccine, variable=self.vaccine_var, value=vaccine,fg="#152238", bg="white", font=child_window_font_for_ques)
             radiobutton.grid(row=11+i, column=0, columnspan=3, sticky="w", padx=3)
-        # vaccine_result, contact_person_name, contact_person_phone
+        # contact_person_name
+        contact_person_name_label = Label(add_frame, text="6.a Name:", fg="#152238", bg="white", font=child_window_label_font)
+        contact_person_name_label.grid(row=15, column=0, pady=3, padx= 1, sticky="w")
+        self.contact_person_name_label_entry = Entry(add_frame)
+        self.contact_person_name_label_entry.grid(row=15, column=1, sticky="w")
+        #  contact_person_phone
     # Def function that will to get the data entered
     def add_record_action(self):
         last_name = self.last_name_entry.get()
@@ -102,8 +107,7 @@ class ContactTracingGUI:
         contact_number = self.contact_number_entry.get()
         email = self.email_label_entry.get
         vaccine = self.vaccine_var.get()
+        contact_person_name = self.contact_person_name_label_entry.get()
     # Def functions that will display a child window named search if the user picks search buttons
         # Create a child window
         # Create search key that will ask the name of the user
-
-
