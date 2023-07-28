@@ -15,9 +15,10 @@ class ContactTracingApp:
         self.entries.append(records)
     # Def function to write and save the file
     def save_records(self, filename):
-       with open(filename, 'w') as file:
+        with open(filename, 'w') as file:
             for entry in self.entries:
-                file.write(f"{entry.name}, {entry.address}, {entry.contact_number}, {entry.email}, {entry.vaccine}, {entry.contact_person_name}, {entry.contact_person_phone}\n")
+                name = f"{entry.last_name}, {entry.first_name}"  # Reconstruct the name from last_name and first_name
+                file.write(f"{name}, {entry.address}, {entry.contact_number}, {entry.email}, {entry.vaccine}, {entry.contact_person_name}, {entry.contact_person_phone}\n")  
     # Def function that will load and read the file
     def read_records(self, filename):
         self.entries.clear()
@@ -32,7 +33,8 @@ class ContactTracingApp:
     # Def function for search entry
     def search_records(self, search_key):
         match_entry = []
+        search_key = search_key.lower()  # Convert the search key to lowercase for case-insensitive comparison
         for entry in self.entries:
-            if entry.name == search_key:
+            if entry.name.lower() == search_key:
                 match_entry.append(entry)
         return match_entry

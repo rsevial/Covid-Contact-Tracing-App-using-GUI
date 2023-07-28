@@ -277,10 +277,3 @@ class ContactTracingGUI:
         else:
             print("No matching records found.")
     
-
-# Constructor that will make the main window of the app
-main = Tk()
-# Making what we created in GUI as objects
-contact_tracing_gui = ContactTracingGUI(main)
-# Execute the GUI app
-main.mainloop()
