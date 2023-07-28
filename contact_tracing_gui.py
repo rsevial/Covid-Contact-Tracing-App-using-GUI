@@ -295,16 +295,12 @@ class ContactTracingGUI:
 
     # Define the search action
     def search_record_action(self, search_query):
-        self.contact_tracing_app.read_records("contact_tracing_records.txt")
-
         # Check if the input is valid
         if not search_query.strip():
             messagebox.showerror("Error", "Please enter a valid search query.")
             return
-
         # Search for matching entries
         self.match_entry = self.contact_tracing_app.search_records(search_key=search_query)
-
         # Display the search results
         self.display_search_results()
 
@@ -313,7 +309,6 @@ class ContactTracingGUI:
         # Clear any previous search results from the frame
         for widget in self.results_frame.winfo_children():
             widget.destroy()
-
         # Display the search results
         if self.match_entry:
             self.create_result_frame()
@@ -325,10 +320,8 @@ class ContactTracingGUI:
     def create_result_frame(self):
         for widget in self.results_frame.winfo_children():
             widget.destroy()
-
         # Create a Treeview widget
         self.results_treeview = ttk.Treeview(self.results_frame)
-
         # Define the columns and their headings
         self.results_treeview["columns"] = ("Name", "Address", "Contact Number", "Email Address", "Vaccine Status", "Contact Person Name", "Contact Person Phone Number")
         self.results_treeview.heading("#0", text="Record", anchor="center")
@@ -339,7 +332,7 @@ class ContactTracingGUI:
         self.results_treeview.heading("Vaccine Status", text="Vaccine Status", anchor="center", command=lambda: self.sort_column("Vaccine Status", False))
         self.results_treeview.heading("Contact Person Name", text="Contact Person Name", anchor="center", command=lambda: self.sort_column("Contact Person Name", False))
         self.results_treeview.heading("Contact Person Phone Number", text="Contact Person Phone Number", anchor="center", command=lambda: self.sort_column("Contact Person Phone Number", False))
-
+        
         # Set the column widths
         self.results_treeview.column("#0", width=80)
         self.results_treeview.column("Name", width=150)
