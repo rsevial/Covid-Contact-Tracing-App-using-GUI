@@ -1,3 +1,6 @@
+# Programmed by: Rebekah Joy E. Sevial
+# Contact Tracing using GUI
+
 # Import all the needed modules and class from other class
 from tkinter import *
 from tkinter.font import Font
@@ -12,6 +15,7 @@ class ContactTracingGUI:
         self.contact_tracing_app = ContactTracingApp("contact_tracing_records.txt")
         self.main = main
         window = self.main
+        self.results_frame = None
         self.match_entry = []
 
         # Create a Title for parent window
@@ -277,7 +281,7 @@ class ContactTracingGUI:
         search_button.grid(row=0, column=2, pady=10, padx=10, sticky="w")
 
         # Create a frame to display the search results
-        results_frame = Frame(search_window, bg="#white", width=100, height= 325)
+        results_frame = Frame(search_window, bg="white", width=100, height= 325)
         results_frame.grid(row=1, column=0, columnspan=3, pady=10, padx=5)
         self.results_frame = results_frame
 
@@ -319,19 +323,22 @@ class ContactTracingGUI:
 
     # Create a method to create and populate the result frame
     def create_result_frame(self):
+        for widget in self.results_frame.winfo_children():
+            widget.destroy()
+
         # Create a Treeview widget
         self.results_treeview = ttk.Treeview(self.results_frame)
 
         # Define the columns and their headings
         self.results_treeview["columns"] = ("Name", "Address", "Contact Number", "Email Address", "Vaccine Status", "Contact Person Name", "Contact Person Phone Number")
-        self.results_treeview.heading("#0", text="Record")
-        self.results_treeview.heading("Name", text="Name")
-        self.results_treeview.heading("Address", text="Address")
-        self.results_treeview.heading("Contact Number", text="Contact Number")
-        self.results_treeview.heading("Email Address", text="Email Address")
-        self.results_treeview.heading("Vaccine Status", text="Vaccine Status")
-        self.results_treeview.heading("Contact Person Name", text="Contact Person Name")
-        self.results_treeview.heading("Contact Person Phone Number", text="Contact Person Phone Number")
+        self.results_treeview.heading("#0", text="Record", anchor="center")
+        self.results_treeview.heading("Name", text="Name", anchor="center", command=lambda: self.sort_column("Name", False))
+        self.results_treeview.heading("Address", text="Address", anchor="center", command=lambda: self.sort_column("Address", False))
+        self.results_treeview.heading("Contact Number", text="Contact Number", anchor="center", command=lambda: self.sort_column("Contact Number", False))
+        self.results_treeview.heading("Email Address", text="Email Address", anchor="center", command=lambda: self.sort_column("Email Address", False))
+        self.results_treeview.heading("Vaccine Status", text="Vaccine Status", anchor="center", command=lambda: self.sort_column("Vaccine Status", False))
+        self.results_treeview.heading("Contact Person Name", text="Contact Person Name", anchor="center", command=lambda: self.sort_column("Contact Person Name", False))
+        self.results_treeview.heading("Contact Person Phone Number", text="Contact Person Phone Number", anchor="center", command=lambda: self.sort_column("Contact Person Phone Number", False))
 
         # Set the column widths
         self.results_treeview.column("#0", width=80)
@@ -355,3 +362,9 @@ class ContactTracingGUI:
 
         # Pack the Treeview
         self.results_treeview.pack(fill="both", expand=True)
+
+        # Apply the bold font style to column headings
+        bold_font = Font(family="Montserrat", size=12, weight="bold")
+        self.results_treeview.tag_configure("heading_bold", font=bold_font)
+        for column in self.results_treeview["columns"]:
+            self.results_treeview.heading(column, text=self.results_treeview.heading(column)["text"], anchor=self.results_treeview.heading(column)["anchor"], tag=("heading_bold",))

@@ -16,7 +16,7 @@ class ContactTracingApp:
     def save_records(self, filename):
         with open(filename, 'w') as file:
             for entry in self.entries:
-                name = f"{entry.last_name}, {entry.first_name}"  # Reconstruct the name from last_name and first_name
+                name = f"{entry.last_name} {entry.first_name}"  # Reconstruct the name from last_name and first_name
                 file.write(f"{name}, {entry.address}, {entry.contact_number}, {entry.email}, {entry.vaccine}, {entry.contact_person_name}, {entry.contact_person_phone}\n")  
     # Def function that will load and read the file
     def read_records(self, filename):
