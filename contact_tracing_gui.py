@@ -145,13 +145,13 @@ class ContactTracingGUI:
         data_privacy_text = """I hereby authorize the application to collect and process the data listed here so that the COVID-19 infection can be controlled. I am aware that the Data Privacy Act of 2012 protects my personal information. If needed, this information may be used to help Medical Services and/or LGU find my contact information. I also know that the RA 11469 Bayanihan to Heal as One Act requires me to give accurate information. Click the OK Button to proceed. Otherwise, click the cancel button."""
         # label widget
         data_privacy_label = Label(self.data_privacy_window, text=data_privacy_text, bg="white", fg="black", font=("Oxygen Bold", 11), wraplength=280, justify="left")
-        data_privacy_label.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
+        data_privacy_label.pack(padx=10, pady=10)
         # button widget for ok
         data_privacy_ok_button = Button(self.data_privacy_window, text="OK", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.add_record_action)
-        data_privacy_ok_button.grid(row=1, column=1, padx=5, pady=5, sticky="e")
+        data_privacy_ok_button.pack(padx=10, pady=10, side=RIGHT)
         # button widgets for cancel
-        data_privacy_cancel_button = Button(self.data_privacy_window, text="Cancel", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=data_privacy_window.destroy)
-        data_privacy_cancel_button.grid(row=1, column=0, padx=5, pady=5, sticky="w")
+        data_privacy_cancel_button = Button(self.data_privacy_window, text="Cancel", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.data_privacy_window.destroy)
+        data_privacy_cancel_button.pack(padx=10, pady=10, side=LEFT)
         # Make the Label widget non-editable
         data_privacy_label.config(state="disabled")
 
@@ -212,9 +212,8 @@ class ContactTracingGUI:
                 self.data_privacy_window.destroy()
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while saving the record: {e}")
-            return False
+            return 
         
-        return True
     # Define function that will search the user's information
     def search_record(self):
         # Create a child window
@@ -264,5 +263,24 @@ class ContactTracingGUI:
                 result_label.pack(anchor="w")
         else:
             no_result_label = Label(results_frame, text="No matching records found.", fg="#152238", bg="white", font=("Montserrat", 11, "italic"))
-            no_result_label.pack(anchor="w")
+            no_result_label.pack(anchor="w")    
     
+    # Function to print the search results
+    def print_search_results(self):
+        if self.match_entry:
+            print("Search Results:")
+            for idx, entry in enumerate(self.match_entry):
+                print(f"{idx + 1}. Name: {entry.name}")
+                print(f"   Address: {entry.address}")
+                print(f"   Contact Number: {entry.contact_number}")
+                print()
+        else:
+            print("No matching records found.")
+    
+
+# Constructor that will make the main window of the app
+main = Tk()
+# Making what we created in GUI as objects
+contact_tracing_gui = ContactTracingGUI(main)
+# Execute the GUI app
+main.mainloop()

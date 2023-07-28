@@ -33,6 +33,6 @@ class ContactTracingApp:
     def search_records(self, search_key):
         match_entry = []
         for entry in self.entries:
-            if entry.name() == search_key():
+            if entry.name == search_key:
                 match_entry.append(entry)
         return match_entry
