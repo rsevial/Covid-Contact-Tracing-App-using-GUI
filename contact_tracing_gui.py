@@ -39,7 +39,15 @@ class ContactTracingGUI:
         # for search entry
         window.search_button = Button(master=main, text="Search Record", width=15, height=2, fg="#003a88", bg="#90b1db", relief=GROOVE, font=window.label_font, justify="right", command=self.search_record)
         window.search_button.grid(row=3, column=1, padx=10, pady=10)
-    
+        
+        # Center the window on the screen.
+        window.update_idletasks()
+        screen_width = window.winfo_screenwidth()
+        screen_height = window.winfo_screenheight()
+        x = (screen_width - window.winfo_width()) // 2
+        y = (screen_height - window.winfo_height()) // 2
+        window.geometry('+{}+{}'.format(x, y))
+
     # Def functions that will display a child window named add if the user picks add buttons
     def add_record(self):
         # Create a child window
@@ -129,9 +137,17 @@ class ContactTracingGUI:
         self.contact_person_phone_entry = Entry(add_frame)
         self.contact_person_phone_entry.grid(row=18, columnspan=1, sticky="e")
     
-    # Create a button that will add the new record
+        # Create a button that will add the new record
         add_record = Button(add_frame, text="Add Record", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=child_window_label_font, justify="right", command=self.data_privacy)
         add_record.grid(row=19, columnspan=1, padx=10, pady=10, sticky="e")
+
+        # Center the window on the screen.
+        add_window.update_idletasks()
+        screen_width = add_window.winfo_screenwidth()
+        screen_height = add_window.winfo_screenheight()
+        x = (screen_width - add_window.winfo_width()) // 2
+        y = (screen_height - add_window.winfo_height()) // 2
+        add_window.geometry('+{}+{}'.format(x, y))
 
     # Def function for data privacy agreement
     def data_privacy(self):
@@ -153,7 +169,15 @@ class ContactTracingGUI:
         data_privacy_cancel_button.pack(padx=10, pady=10, side=LEFT)
         # Make the Label widget non-editable
         data_privacy_label.config(state="disabled")
-
+        
+        # Center the window on the screen.
+        self.data_privacy_window.update_idletasks()
+        screen_width = self.data_privacy_window.winfo_screenwidth()
+        screen_height = self.data_privacy_window.winfo_screenheight()
+        x = (screen_width - self.data_privacy_window.winfo_width()) // 2
+        y = (screen_height - self.data_privacy_window.winfo_height()) // 2
+        self.data_privacy_window.geometry('+{}+{}'.format(x, y))
+    
     # def function that will close the data privacy window when you click ok
     def close_data_privacy_and_add_record(self):
         if self.data_privacy_window:
@@ -257,40 +281,48 @@ class ContactTracingGUI:
         results_frame.grid(row=1, column=0, columnspan=3, pady=10, padx=5)
         self.results_frame = results_frame
 
-        # Define the search action
+        # Center the window on the screen.
+        search_window.update_idletasks()
+        screen_width = search_window.winfo_screenwidth()
+        screen_height = search_window.winfo_screenheight()
+        x = (screen_width - search_window.winfo_width()) // 2
+        y = (screen_height - search_window.winfo_height()) // 2
+        search_window.geometry('+{}+{}'.format(x, y))
+
+    # Define the search action
     def search_record_action(self, search_query):
         self.contact_tracing_app.read_records("contact_tracing_records.txt")
 
-    # Check if the input is valid
+        # Check if the input is valid
         if not search_query.strip():
             messagebox.showerror("Error", "Please enter a valid search query.")
             return
 
-    # Search for matching entries
+        # Search for matching entries
         self.match_entry = self.contact_tracing_app.search_records(search_key=search_query)
 
-    # Display the search results
+        # Display the search results
         self.display_search_results()
 
-    # def display search results
+    # Define display search results
     def display_search_results(self):
-    # Clear any previous search results from the frame
+        # Clear any previous search results from the frame
         for widget in self.results_frame.winfo_children():
             widget.destroy()
 
-    # Display the search results
+        # Display the search results
         if self.match_entry:
             self.create_result_frame()
         else:
             no_result_label = Label(self.results_frame, text="No matching records found.", fg="#152238", bg="white", font=("Montserrat", 11, "italic"))
             no_result_label.pack(anchor="w")
 
-# Create a method to create and populate the result frame
+    # Create a method to create and populate the result frame
     def create_result_frame(self):
-    # Create a Treeview widget
+        # Create a Treeview widget
         self.results_treeview = ttk.Treeview(self.results_frame)
 
-    # Define the columns and their headings
+        # Define the columns and their headings
         self.results_treeview["columns"] = ("Name", "Address", "Contact Number", "Email Address", "Vaccine Status", "Contact Person Name", "Contact Person Phone Number")
         self.results_treeview.heading("#0", text="Record")
         self.results_treeview.heading("Name", text="Name")
@@ -301,7 +333,7 @@ class ContactTracingGUI:
         self.results_treeview.heading("Contact Person Name", text="Contact Person Name")
         self.results_treeview.heading("Contact Person Phone Number", text="Contact Person Phone Number")
 
-    # Set the column widths
+        # Set the column widths
         self.results_treeview.column("#0", width=80)
         self.results_treeview.column("Name", width=150)
         self.results_treeview.column("Address", width=200)
@@ -311,15 +343,15 @@ class ContactTracingGUI:
         self.results_treeview.column("Contact Person Name", width=150)
         self.results_treeview.column("Contact Person Phone Number", width=180)
 
-    # Insert the search results into the Treeview
+        # Insert the search results into the Treeview
         for idx, entry in enumerate(self.match_entry):
             record_number = f"Record {idx + 1}"
             self.results_treeview.insert("", "end", text=record_number, values=(entry.name, entry.address, entry.contact_number, entry.email, entry.vaccine, entry.contact_person_name, entry.contact_person_phone))
 
-    # Attach a scrollbar to the Treeview
+        # Attach a scrollbar to the Treeview
         scrollbar = ttk.Scrollbar(self.results_frame, orient="vertical", command=self.results_treeview.yview)
         self.results_treeview.configure(yscrollcommand=scrollbar.set)
         scrollbar.pack(side="right", fill="y")
 
-    # Pack the Treeview
+        # Pack the Treeview
         self.results_treeview.pack(fill="both", expand=True)
