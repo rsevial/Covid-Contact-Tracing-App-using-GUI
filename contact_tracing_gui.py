@@ -1,20 +1,19 @@
-# Programmed by: Rebekah Joy E. Sevial
-# Contact Tracing using GUI
-
 # Import all the needed modules and class from other class
 from tkinter import *
 from tkinter.font import Font
 from tkinter import messagebox
+from tkinter import ttk
 from contact_tracing_app import ContactTracingApp, ContactTracingRecords
 
 # Create a class named ContactTracingGUI
 class ContactTracingGUI:
     # Def function for main window
     def __init__(self,main):
-        self.contact_tracing_app = ContactTracingApp()
+        self.contact_tracing_app = ContactTracingApp("contact_tracing_records.txt")
         self.main = main
         window = self.main
         self.match_entry = []
+
         # Create a Title for parent window
         window.title("Contact Tracing Application")
         # Create a frame and the preferred size and color of the parent window
@@ -65,21 +64,21 @@ class ContactTracingGUI:
         instructions.grid(row=1, columnspan=1, sticky="w", pady=3, padx=3)
 
         # Create a section named Respondent Details
-        res_details = Label(add_frame, text="Respondent Details", fg="#007fff", bg="white", height=1, font=child_window_label_font)
-        res_details.grid(row=2, columnspan=1, sticky="w", pady=3, padx=3)     
+        respondents_details = Label(add_frame, text="Respondent Details", fg="#007fff", bg="white", height=1, font=child_window_label_font)
+        respondents_details.grid(row=2, columnspan=1, sticky="w", pady=3, padx=3)     
         
         # Create checkbutton, text, entry for asking the user's 
         # name
         name_label = Label(add_frame, text="1. Full Name", fg="#152238", bg="white", font=child_window_label_font)
         name_label.grid(row=3, column=0, pady=3, padx= 1, sticky="w")
         
-        # first name
-        first_name_label = Label(add_frame, text="Last Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
-        first_name_label.grid(row=4, column=0, pady=3, padx= 1, sticky="w")
+        # last name
+        last_name_label = Label(add_frame, text="Last Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
+        last_name_label.grid(row=4, column=0, pady=3, padx= 1, sticky="w")
         self.last_name_entry = Entry(add_frame)
         self.last_name_entry.grid(row=4, columnspan=1, sticky="e")
         
-        # last name
+        # first name
         first_name_label = Label(add_frame, text="First Name:", fg="#152238", bg="white", font=child_window_font_for_ques)
         first_name_label.grid(row=5, column=0, pady=3, padx= 1, sticky="w")
         self.first_name_entry = Entry(add_frame)
@@ -100,8 +99,8 @@ class ContactTracingGUI:
         # email
         email_label = Label(add_frame, text="4. Email Address:", fg="#152238", bg="white", font=child_window_label_font)
         email_label.grid(row=10, column=0, pady=3, padx= 1, sticky="w")
-        self.email_label_entry = Entry(add_frame)
-        self.email_label_entry.grid(row=10, columnspan=1, sticky="e")
+        self.email_entry = Entry(add_frame)
+        self.email_entry.grid(row=10, columnspan=1, sticky="e")
         
         # vaccine
         vaccine_label = Label(add_frame, text="5. Have you been vaccinated for COVID-19?", fg="#152238", bg="white", font=child_window_label_font)
@@ -115,8 +114,8 @@ class ContactTracingGUI:
             radiobutton.grid(row=12+i, column=0, columnspan=1, sticky="w")
         
         # Create a section Respondent Details
-        contact_per_details = Label(add_frame, text="Contact Person Details", fg="#007fff", bg="white", height=1, font=child_window_label_font)
-        contact_per_details.grid(row=16, columnspan=1, sticky="w", pady=3, padx=3) 
+        contact_person_details = Label(add_frame, text="Contact Person Details", fg="#007fff", bg="white", height=1, font=child_window_label_font)
+        contact_person_details.grid(row=16, columnspan=1, sticky="w", pady=3, padx=3) 
 
         # contact_person_name
         contact_person_name_label = Label(add_frame, text="6.a Name:", fg="#152238", bg="white", font=child_window_label_font)
@@ -147,7 +146,7 @@ class ContactTracingGUI:
         data_privacy_label = Label(self.data_privacy_window, text=data_privacy_text, bg="white", fg="black", font=("Oxygen Bold", 11), wraplength=280, justify="left")
         data_privacy_label.pack(padx=10, pady=10)
         # button widget for ok
-        data_privacy_ok_button = Button(self.data_privacy_window, text="OK", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.add_record_action)
+        data_privacy_ok_button = Button(self.data_privacy_window, text="OK", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.close_data_privacy_and_add_record)
         data_privacy_ok_button.pack(padx=10, pady=10, side=RIGHT)
         # button widgets for cancel
         data_privacy_cancel_button = Button(self.data_privacy_window, text="Cancel", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 13, "bold"), command=self.data_privacy_window.destroy)
@@ -155,13 +154,19 @@ class ContactTracingGUI:
         # Make the Label widget non-editable
         data_privacy_label.config(state="disabled")
 
+    # def function that will close the data privacy window when you click ok
+    def close_data_privacy_and_add_record(self):
+        if self.data_privacy_window:
+            self.data_privacy_window.destroy()
+            self.add_record_action()
+
     # Def function that will to get the data entered
     def add_record_action(self):
         last_name = self.last_name_entry.get()
         first_name = self.first_name_entry.get()
         address = self.address_entry.get("1.0", END).strip()
         contact_number = self.contact_number_entry.get()
-        email = self.email_label_entry.get()
+        email = self.email_entry.get()
         vaccine = self.vaccine_var.get()
         contact_person_name = self.contact_person_name_label_entry.get()
         contact_person_phone = self.contact_person_phone_entry.get()
@@ -182,6 +187,7 @@ class ContactTracingGUI:
             if not field_value:
                 messagebox.showerror("Error", f"Please fill in the required field: {field_name}")
                 return False
+            
         # Check if the numbers are all int for 
         # contact_number
         try:
@@ -202,7 +208,7 @@ class ContactTracingGUI:
         
         # Create an instance of ContactTracingRecords
         name = f"{last_name}, {first_name}"
-        entry = ContactTracingRecords(name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone)
+        entry = ContactTracingRecords(last_name, first_name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone)
         try:
             # Save the records to a file
             self.contact_tracing_app.add_records(entry)
@@ -219,61 +225,101 @@ class ContactTracingGUI:
         # Create a child window
         search_window = Toplevel(self.main)
         search_window.title("Search Record")
-        search_window.geometry("528x400")
+        search_window.geometry("1300x400")
         search_window.configure(bg="white")
 
         # Create a label and entry field for the user to enter the name they want to search for
         search_label = Label(search_window, text="Enter Name to Search:", fg="#152238", bg="white", font=("Montserrat", 12, "bold"))
         search_label.grid(row=0, column=0, pady=10, padx=10, sticky="w")
 
-        search_entry = Entry(search_window, font=("Montserrat", 12))
+        # Create a StringVar to hold the search query
+        search_info_var = StringVar()
+
+        search_entry = Entry(search_window, font=("Montserrat", 12), width=90, textvariable=search_info_var)
         search_entry.grid(row=0, column=1, pady=10, padx=10, sticky="w")
 
         # Create a button to initiate the search
-        search_button = Button(search_window, text="Search", width=10, height=1, fg="#003a88", bg="#90b1db", relief=GROOVE, font=("Montserrat", 12, "bold"), command=lambda: self.search_record_action(search_entry, self.contact_tracing_app, results_frame))
+        search_button = Button(
+            search_window,
+            text="Search",
+            width=20,
+            height=1,
+            fg="#003a88",
+            bg="#90b1db",
+            relief=GROOVE,
+            font=("Montserrat", 12, "bold"),
+            command=lambda: self.search_record_action(search_entry.get())
+            )
         search_button.grid(row=0, column=2, pady=10, padx=10, sticky="w")
 
         # Create a frame to display the search results
-        results_frame = Frame(search_window, bg="#cae4f1", width=500, height= 325)
+        results_frame = Frame(search_window, bg="#white", width=100, height= 325)
         results_frame.grid(row=1, column=0, columnspan=3, pady=10, padx=5)
-    
-    # Define the search action
-    def search_record_action(self, search_entry_widget, contact_tracing_app, results_frame):
-        search_info = search_entry_widget.get()
+        self.results_frame = results_frame
 
-        # Check if the input is valid
-        if not search_info.strip():
+        # Define the search action
+    def search_record_action(self, search_query):
+        self.contact_tracing_app.read_records("contact_tracing_records.txt")
+
+    # Check if the input is valid
+        if not search_query.strip():
             messagebox.showerror("Error", "Please enter a valid search query.")
             return
 
-        # Search for matching entries
-        self.match_entry = contact_tracing_app.search_records(search_key=search_info)
-        # Display the search results
-        self.display_search_results(results_frame)
+    # Search for matching entries
+        self.match_entry = self.contact_tracing_app.search_records(search_key=search_query)
 
-    # Define function to display the search results
-    def display_search_results(self, results_frame):
-        # Clear any previous search results from the frame
-        for widget in results_frame.winfo_children():
+    # Display the search results
+        self.display_search_results()
+
+    # def display search results
+    def display_search_results(self):
+    # Clear any previous search results from the frame
+        for widget in self.results_frame.winfo_children():
             widget.destroy()
-        # display the info
+
+    # Display the search results
         if self.match_entry:
-            for idx, entry in enumerate(self.match_entry):
-                result_label = Label(results_frame, text=f"{idx + 1}. {entry.name}, {entry.address}, {entry.contact_number}", fg="#152238", bg="white", font=("Montserrat", 11))
-                result_label.pack(anchor="w")
+            self.create_result_frame()
         else:
-            no_result_label = Label(results_frame, text="No matching records found.", fg="#152238", bg="white", font=("Montserrat", 11, "italic"))
-            no_result_label.pack(anchor="w")    
-    
-    # Function to print the search results
-    def print_search_results(self):
-        if self.match_entry:
-            print("Search Results:")
-            for idx, entry in enumerate(self.match_entry):
-                print(f"{idx + 1}. Name: {entry.name}")
-                print(f"   Address: {entry.address}")
-                print(f"   Contact Number: {entry.contact_number}")
-                print()
-        else:
-            print("No matching records found.")
-    
+            no_result_label = Label(self.results_frame, text="No matching records found.", fg="#152238", bg="white", font=("Montserrat", 11, "italic"))
+            no_result_label.pack(anchor="w")
+
+# Create a method to create and populate the result frame
+    def create_result_frame(self):
+    # Create a Treeview widget
+        self.results_treeview = ttk.Treeview(self.results_frame)
+
+    # Define the columns and their headings
+        self.results_treeview["columns"] = ("Name", "Address", "Contact Number", "Email Address", "Vaccine Status", "Contact Person Name", "Contact Person Phone Number")
+        self.results_treeview.heading("#0", text="Record")
+        self.results_treeview.heading("Name", text="Name")
+        self.results_treeview.heading("Address", text="Address")
+        self.results_treeview.heading("Contact Number", text="Contact Number")
+        self.results_treeview.heading("Email Address", text="Email Address")
+        self.results_treeview.heading("Vaccine Status", text="Vaccine Status")
+        self.results_treeview.heading("Contact Person Name", text="Contact Person Name")
+        self.results_treeview.heading("Contact Person Phone Number", text="Contact Person Phone Number")
+
+    # Set the column widths
+        self.results_treeview.column("#0", width=80)
+        self.results_treeview.column("Name", width=150)
+        self.results_treeview.column("Address", width=200)
+        self.results_treeview.column("Contact Number", width=150)
+        self.results_treeview.column("Email Address", width=200)
+        self.results_treeview.column("Vaccine Status", width=150)
+        self.results_treeview.column("Contact Person Name", width=150)
+        self.results_treeview.column("Contact Person Phone Number", width=180)
+
+    # Insert the search results into the Treeview
+        for idx, entry in enumerate(self.match_entry):
+            record_number = f"Record {idx + 1}"
+            self.results_treeview.insert("", "end", text=record_number, values=(entry.name, entry.address, entry.contact_number, entry.email, entry.vaccine, entry.contact_person_name, entry.contact_person_phone))
+
+    # Attach a scrollbar to the Treeview
+        scrollbar = ttk.Scrollbar(self.results_frame, orient="vertical", command=self.results_treeview.yview)
+        self.results_treeview.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side="right", fill="y")
+
+    # Pack the Treeview
+        self.results_treeview.pack(fill="both", expand=True)

@@ -6,10 +6,9 @@ from records import ContactTracingRecords
 
 # Create a class named ContactTracingApp that will perform
 class ContactTracingApp:
-    def __init__(self):
-        # create varible that will store the info of the user in a list
+    def __init__(self, filename):
         self.entries = []
-        self.read_records("contact_tracing_records.txt")
+        self.read_records(filename) 
     # Def function for add entry
     def add_records(self, records):
         self.entries.append(records)
@@ -26,15 +25,15 @@ class ContactTracingApp:
             lines = file.readlines()
             for line in lines:
                 data = line.strip().split(',')
-                if len(data) == 7: 
-                    name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone = data  # Removed trailing comma
-                    entry = ContactTracingRecords(name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone)
+                if len(data) == 8:  # Updated to match the number of fields in the record
+                    last_name, first_name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone = data
+                    entry = ContactTracingRecords(last_name, first_name, address, contact_number, email, vaccine, contact_person_name, contact_person_phone)
                     self.add_records(entry)
     # Def function for search entry
     def search_records(self, search_key):
         match_entry = []
-        search_key = search_key.lower()  # Convert the search key to lowercase for case-insensitive comparison
+        search_key = search_key.lower().strip()  # Convert the search key to lowercase and remove leading/trailing spaces
         for entry in self.entries:
-            if entry.name.lower() == search_key:
+            if search_key in entry.name.lower():  # Check if the search key is present in the lowercased name
                 match_entry.append(entry)
         return match_entry
